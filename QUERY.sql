@@ -12,3 +12,48 @@ DROP TABLE IF EXISTS Matches;
 DROP TABLE IF EXISTS Users;
 
 
+
+-- =========================================================================
+-- 1. CREATE USERS TABLE
+-- =========================================================================
+CREATE TABLE Users (
+  user_id serial PRIMARY KEY,
+  full_name varchar(100),
+  email varchar(200) UNIQUE,
+  role varchar(50) CHECK (role IN ('Ticket Manager', 'Football Fan')),
+  phone_number varchar(50)
+);
+
+
+-- =========================================================================
+-- 2. CREATE MATCHES TABLE
+-- =========================================================================
+CREATE TABLE Matches (
+  match_id serial PRIMARY KEY,
+  fixture varchar(100),
+  tournament_category varchar(100),
+  base_ticket_price int CHECK (base_ticket_price >= 0),
+  match_status varchar(50) CHECK (
+    match_status IN (
+      'Available',
+      'Selling Fast',
+      'Sold Out',
+      'Postponed'
+    )
+  )
+);
+
+
+-- =========================================================================
+-- 3. CREATE BOOKINGS TABLE
+-- =========================================================================
+CREATE TABLE Bookings (
+  booking_id serial PRIMARY KEY,
+  user_id int REFERENCES users (user_id),
+  match_id int REFERENCES matches (match_id),
+  seat_number varchar(50),
+  payment_status varchar(50) CHECK (
+    payment_status IN ('Pending', 'Confirmed', 'Cancelled', 'Refunded')
+  ),
+  total_cost int CHECK (total_cost >= 0)
+);
