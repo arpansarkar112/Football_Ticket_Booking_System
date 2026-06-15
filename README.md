@@ -32,7 +32,7 @@ Stores scheduling and financial details for football fixtures.
 * **Constraints:** `base_ticket_price` enforces a `CHECK (base_ticket_price >= 0)` to prevent negative pricing.
 * **Business Logic:** The `match_status` tracks the lifecycle of the event using a `CHECK` constraint limited to: `'Available'`, `'Selling Fast'`, `'Sold Out'`, or `'Postponed'`.
 
-### 3. Bookings Table (Junction Entity)
+### 3. Bookings Table
 Acts as the transactional table linking Users and Matches.
 * **Primary Key:** `booking_id`
 * **Foreign Keys:** `user_id` (references Users) and `match_id` (references Matches).
@@ -56,7 +56,7 @@ The `QUERY.sql` file in this repository contains the schema creation, data seedi
 
 ---
 
-## 🚀 How to Run
+## How to Run
 1. Clone this repository.
 2. Load the `QUERY.sql` file into your preferred PostgreSQL environment.
 3. Execute the script to drop/create tables, insert the seed data, and run the 7 analytical queries.
