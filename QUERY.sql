@@ -201,7 +201,7 @@ FROM
   bookings
 WHERE
   payment_status IS NULL;
-  
+
 -- =========================================================================
 -- QUERY 4: Retrieve match booking details along with the User's full name and the 
 --          scheduled Match fixture teams.
@@ -215,3 +215,16 @@ FROM
   bookings
   INNER JOIN users USING (user_id)
   INNER JOIN matches USING (match_id);
+
+-- =========================================================================
+-- QUERY 5: Display a comprehensive list of all users and their booking IDs, 
+--          ensuring that fans who have never bought a ticket are still listed.
+-- =========================================================================
+SELECT
+  user_id,
+  full_name,
+  booking_id
+FROM
+  bookings
+  FULL JOIN users USING (user_id);
+
